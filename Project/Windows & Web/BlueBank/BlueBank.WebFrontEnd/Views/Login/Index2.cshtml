@@ -1,0 +1,48 @@
+﻿@model BlueBank.WebFrontEnd.Models.LoginLoginDTOVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+    @if (Model.loginDTO != null && Model.loginDTO.EmployeeId > 0)
+    {
+        <h3>Login successful. Your employee id is @Model.loginDTO.EmployeeId</h3>
+    }
+</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    if (Model.login.Errors.Count > 0)
+    {
+        <div class="text-danger">
+            <ul>
+                @foreach (var error in Model.login.Errors.Where(e => e.Type == "business"))
+                {
+                    <li>@error.Description</li>
+                }
+            </ul>
+        </div>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.login.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.login.EmployeeId, new { htmlAttributes = new { @class = "form-control", placeholder = "Employee Id" } })
+            @Html.ValidationMessageFor(model => model.login.EmployeeId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.login.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.login.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Password" } })
+            @Html.ValidationMessageFor(model => model.login.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <input type="submit" value="Login">
+}

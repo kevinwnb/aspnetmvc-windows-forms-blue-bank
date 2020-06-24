@@ -1,0 +1,82 @@
+﻿@model IEnumerable<BlueBank.Model.EmployeeLookup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1 class="display-4">Search Employee</h1>
+
+@if ((int)Session["employeeType"] == 2 || (int)Session["employeeType"] == 4)
+{
+    <div class="alert alert-info text-black-50 text-center d-block w-80 h-50" >
+        ONLY HR EMPLOYEES CAN ACCESS TO THIS PAGE
+    </div>
+}
+else
+{
+    <div>
+        <hr />
+        <h5>Please select a filter</h5>
+        @using (Html.BeginForm("Index", "Employee", FormMethod.Get))
+        {
+            @Html.RadioButton("searchBy", "Id", true) <text> ID  &nbsp &nbsp</text>
+            @Html.RadioButton("searchBy", "LastName") <text> Full / Partial Last Name  &nbsp &nbsp</text>
+            @Html.TextBox("search") <input type="submit" value="Search" />
+            <br /><br />
+            if (ViewBag.errorMessage != null)
+            {
+                <div class="alert alert-danger">@ViewBag.errorMessage</div>
+            }
+        }
+
+    </div>
+
+
+    <table class="table">
+
+
+        @if (!ViewBag.firstLoad)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeName)
+                </th>
+                <th>Action</th>
+            </tr>
+
+            if (Model.Count() == 0)
+            {
+                <tr>
+                    <td colspan="3">No matching employee(s). Please try again.</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EmployeeName)
+                        </td>
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                            @Html.ActionLink("Details", "Details", new { id = item.EmployeeId })
+                            @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                        </td>
+                    </tr>
+                }
+            }
+        }
+
+
+
+
+    </table>
+}
+

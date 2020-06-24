@@ -1,0 +1,61 @@
+﻿@model BlueBank.WebFrontEnd.Models.SupervisorEmployeesVM
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if ((int)Session["employeeType"] == (int)BlueBank.Model.EmployeeType.RegularEmployee || (int)Session["employeeType"] == (int)BlueBank.Model.EmployeeType.HREmployee)
+{
+    <div class="alert alert-info">
+        ONLY SUPERVISORS CAN ACCES THIS PAGE !
+    </div>
+}
+else
+{
+
+
+
+    <h2 class="display-4 text-center"> <b>Supervisor</b> -  @Html.DisplayFor(model => model.SupervisorFullName)</h2>
+    <hr />
+    <table class="table table-secondary table-striped text-center">
+
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="2" style="font-weight: lighter; font-size: 2em">
+                    Employee List
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            @foreach (var item in Model.employees)
+            {
+
+                <tr>
+
+                    <td>
+                        @{
+                            string name = "";
+                            if (item.MiddleInitial.Trim() == "" || item.MiddleInitial == "NULL")
+                            {
+                                name = item.FirstName + " " + item.LastName;
+                            }
+                            else
+                            {
+                                name = item.FirstName + " " + item.MiddleInitial + " " + item.LastName;
+                            }
+                        }
+
+                        @name
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add Review", "Create", new { id = item.EmployeeId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
+}

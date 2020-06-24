@@ -1,0 +1,115 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "ProcessSearch";
+}
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Process Purchase Order</h2>
+</div>
+
+<hr />
+
+@if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor)
+{
+    if (Model.PurchaseOrder.Errors.Count > 0)
+    {
+        foreach (var error in Model.PurchaseOrder.Errors)
+        {
+            <h3 class="text-danger">Error code: @error.Code Description: @error.Description</h3>
+        }
+    }
+
+    using (@Html.BeginForm("ProcessSearch", "PO", FormMethod.Get))
+    {
+        <div class="row" style="padding: 15px; border: 1px solid grey;">
+            <div class="col" style="border-right: 1px solid gray;">
+                <h3>Employee Name:</h3><br />
+                @Html.TextBox("searchCriteria", null, new { @id = "searchBox", @placeholder = "Employee Name" })
+            </div>
+            <div class="col" style="border-right: 1px solid grey;">
+                <h3>Date:</h3><br />
+                @Html.CheckBox("allDates", true, new { @id = "allDates" }) <text> All Dates  &nbsp &nbsp</text>
+                <br />
+                <label>Start Date:</label><br />
+                @Html.Editor("startDate", DateTime.Today.ToString(), new { htmlAttributes = new { @disabled = "disabled", @type = "date" } })
+                <label>End Date:</label><br />
+                @Html.Editor("endDate", DateTime.Today.ToString(), new { htmlAttributes = new { @disabled = "disabled", @type = "date" } })
+            </div>
+            <div class="col">
+                <h3>Status:</h3><br />
+                <div>@Html.RadioButton("status", "All", false, null) <text>All &nbsp; &nbsp;</text></div>
+                <div>@Html.RadioButton("status", "Pending", true, null) <text>Pending &nbsp; &nbsp;</text></div>
+                <div>@Html.RadioButton("status", "Closed", false, null) <text>Closed &nbsp; &nbsp;</text></div>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 15px;">
+            <input type="submit" value="Search" />
+        </div>
+    }
+
+    <script type="text/javascript" defer>
+        document.querySelector("#allDates").addEventListener("click", function () {
+            if (document.querySelector("#allDates").checked) {
+                document.querySelector("#startDate").disabled = true;
+                document.querySelector("#endDate").disabled = true;
+            }
+            else {
+                document.querySelector("#startDate").disabled = false;
+                document.querySelector("#endDate").disabled = false;
+            }
+        });
+    </script>
+
+    if (Model.ProcessPurchaseOrders != null && Model.ProcessPurchaseOrders.Count > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProcessPurchaseOrder.PurchaseOrderId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProcessPurchaseOrder.EmployeeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProcessPurchaseOrder.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProcessPurchaseOrder.Total)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.ProcessPurchaseOrders)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseOrderId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmployeeName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Process", "Process", new { id = item.PurchaseOrderId })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+        <h3>No Purchase Orders to show</h3>
+    }
+}
+else
+{
+    <h3 class="text-danger">This section is only for PO supervisors</h3>
+}

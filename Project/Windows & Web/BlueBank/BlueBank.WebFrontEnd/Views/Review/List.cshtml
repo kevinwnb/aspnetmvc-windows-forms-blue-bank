@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BlueBank.WebFrontEnd.Models.ReviewVM>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2 class="display-4 text-center">My Reviews</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            Year
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quarter)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.review.Date)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.review.Date.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quarter)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.review.Date)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new {  id=item.review.ReviewId })
+        </td>
+    </tr>
+}
+
+</table>

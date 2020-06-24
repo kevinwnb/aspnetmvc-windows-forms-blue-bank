@@ -1,0 +1,137 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "BrowseSearch";
+}
+
+
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Browse Purchase Order</h2>
+</div>
+
+<hr />
+
+@if (Model.BrowseVM.Errors.Count > 0)
+{
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            @foreach (BlueBank.Model.Error error in Model.BrowseVM.Errors)
+            {
+                <li>@error.Description</li>
+            }
+        </ul>
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row" style="border: 1px solid grey; padding: 15px;">
+            <div class="col col-md-4" style="border-right: 1px solid grey;">
+                @Html.CheckBoxFor(model => model.BrowseVM.SearchByPoNumber) @Html.LabelFor(model => model.BrowseVM.SearchByPoNumber)
+                <h3>PO Number:</h3><br />
+                @Html.TextBoxFor(model => model.BrowseVM.PurchaseOrderIdSearch, new { @placeholder = "Enter PO number" })<br />
+            </div>
+
+            <div class="col col-md-4" style="border-right: 1px solid grey;">
+                <h3>Status:</h3><br />
+                @Html.RadioButtonFor(model => model.BrowseVM.POStatus, "Open", new { @id = "rdoOpen" }) @Html.Label("Open", new { @for = "rdoOpen" })<br />
+                @Html.RadioButtonFor(model => model.BrowseVM.POStatus, "Closed", new { @id = "rdoClosed" }) @Html.Label("Closed", new { @for = "rdoClosed" })<br />
+                @Html.RadioButtonFor(model => model.BrowseVM.POStatus, "Both", new { @id = "rdoBoth" }) @Html.Label("Both", new { @for = "rdoBoth" })<br />
+            </div>
+
+            <div class="col col-md-4">
+                <h3>Date:</h3><br />
+                @Html.Label("Start Date")<br />
+                @Html.EditorFor(model => model.BrowseVM.StartDate, new { htmlAttributes = new { @id = "startDate" } })<br />
+
+                @Html.Label("End Date")<br />
+                @Html.EditorFor(model => model.BrowseVM.EndDate, new { htmlAttributes = new { @id = "endDate" } })<br />
+            </div>
+        </div>
+        <div style="text-align: center; padding: 15px;">
+            <input type="submit" value="Search" />
+        </div>
+    </div>
+}
+
+<table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.PurchaseOrderId)
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Items
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+    @if (Model.BrowseVM.PurchaseOrders.Count == 0)
+    {
+        <tr>
+            <td colspan="5" style="text-align: center;">No Purchase Orders found. Please try again.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var po in Model.BrowseVM.PurchaseOrders)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => po.PurchaseOrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => po.CreationDate)
+                </td>
+                <td>
+                    @foreach (var poItem in po.Items)
+                    {
+
+                        <li>@Html.DisplayFor(poItm => poItem.Name)</li>
+
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => po.TotalAfterTax)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+
+                    @Html.ActionLink("View", "Browse", new { purchaseOrderId = po.PurchaseOrderId })
+
+
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById("chkAllDates").addEventListener("click", function () {
+            if (document.getElementById("chkAllDates").checked == true) {
+                document.getElementById("startDate").disabled = true;
+                document.getElementById("endDate").disabled = true;
+            }
+            else {
+                document.getElementById("startDate").disabled = false;
+                document.getElementById("endDate").disabled = false;
+            }
+        });
+    });
+</script>

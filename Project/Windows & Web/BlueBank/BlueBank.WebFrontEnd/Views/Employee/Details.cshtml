@@ -1,0 +1,121 @@
+﻿@model BlueBank.Model.EmployeeDTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="w-75 m-auto">
+    <hr />
+
+    <table class="table table-secondary table-striped text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th colspan="2" style="font-weight: lighter; font-size: 2em">
+                    Employee Details - @Model.FirstName , @Model.LastName
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.EmployeeId)</th>
+                <td> @Html.DisplayFor(model => model.EmployeeId)</td>
+            </tr>
+
+
+
+            @if (Model.MiddleInitial.Trim() != "")
+            {
+                <tr>
+                    <th>Full Name</th>
+                    <td> 
+                    @Html.DisplayFor(model => model.LastName)
+                    @Html.DisplayFor(model =>model.MiddleInitial)
+                    @Html.DisplayFor(model => model.FirstName)
+                    </td>
+                </tr>
+
+            }
+            else
+            {
+                <tr>
+                    <th>Full Name</th>
+                    <td> 
+                        @Html.DisplayFor(model =>model.LastName)
+                        @Html.DisplayFor(model => model.FirstName)
+                    </td>
+                </tr>
+
+            }
+
+           
+            <tr>
+                <th>
+                   Full Address
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.StreetAddress)
+                    @Html.DisplayFor(model => model.City),
+                    @Html.DisplayFor(model => model.Province)
+                    @Html.DisplayFor(model => model.PostalCode),
+                    @Html.DisplayFor(model => model.Country)
+
+                </td>
+            </tr>
+
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.WorkPhoneNumber)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.WorkPhoneNumber)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CellPhoneNumber)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.CellPhoneNumber)
+                </td>
+            </tr>
+
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmailAddress)
+                </th>
+
+                <td>
+                    @Html.DisplayFor(model => model.EmailAddress)
+                </td>
+            </tr>
+            
+
+            @*<tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+
+                <td>
+                    @if (Model.IsActive)
+                    {
+                        @Html.Label("Active")
+                    }
+                    else
+                    {
+                        @Html.Label("Not Active")
+                    }
+                </td>
+            </tr>*@
+        </tbody>
+    </table>
+</div>
+<p class="mb-5">
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("Back to List", "Index", "Employee", null, new { @class = "btn btn-primary d-block m-auto w-25"})
+</p>

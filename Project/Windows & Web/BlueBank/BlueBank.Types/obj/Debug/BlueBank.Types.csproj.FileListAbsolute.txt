@@ -1,0 +1,5 @@
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Types\bin\Debug\BlueBank.Types.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Types\bin\Debug\BlueBank.Types.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Types\obj\Debug\BlueBank.Types.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Types\obj\Debug\BlueBank.Types.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Types\obj\Debug\BlueBank.Types.pdb

@@ -1,0 +1,120 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "EditSearch";
+}
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Edit Purchase Order</h2>
+</div>
+
+<hr />
+
+<div>
+    @if (Model.PurchaseOrder.Errors.Count > 0)
+    {
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach (var error in Model.PurchaseOrder.Errors)
+                {
+                    <li>@error.Description</li>
+                }
+            </ul>
+        </div>
+    }
+    @if (ViewBag.errorMessage != null)
+    {
+        <!--<div class="alert alert-danger">
+            <ul class="mb-0">
+                @ViewBag.errorMessage
+            </ul>
+        </div>-->
+    }
+    <h5>Please select a filter</h5>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row" style="border: 1px solid grey; padding: 15px;">
+            <div class="col" style="border-right: 1px solid grey;">
+                @Html.RadioButtonFor(model => model.EditSearchVM.SearchBy, "Id", new { @id = "rdoByPoNumber" }) @Html.Label("PO Number", new { @for = "rdoByPoNumber" })<br />
+                @Html.TextBoxFor(model => model.EditSearchVM.PurchaseOrderIdSearch, new { @id = "searchBox", @placeholder = "Purchase Order Number" })<br />
+            </div>
+            <div class="col">
+                @Html.RadioButtonFor(model => model.EditSearchVM.SearchBy, "CreationDate", new { @id = "rdoByCreationDate" }) @Html.Label("Creation Date", new { @for = "rdoByCreationDate" })<br />
+                <label>Start Date:</label><br />
+                @Html.EditorFor(model => model.EditSearchVM.StartDate)<br />
+                <label>End Date:</label><br />
+                @Html.EditorFor(model => model.EditSearchVM.EndDate)<br />
+            </div>
+        </div>
+        <div style="text-align: center; padding: 15px;">
+            <input type="submit" value="Search" />
+        </div>
+    }
+
+</div>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.PurchaseOrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.CreationDate)
+        </th>
+        <th>
+            Items
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.TotalAfterTax)
+        </th>
+        <th>
+            Action
+        </th>
+    </tr>
+
+    @if (Model.EditPurchaseOrders.Count == 0)
+    {
+        <tr>
+            <td colspan="5" style="text-align: center;">No Purchase Orders found. Please try again.</td>
+        </tr>
+    }
+    else
+    {
+        foreach (var po in Model.EditPurchaseOrders)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => po.PurchaseOrderId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => po.CreationDate)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var poItem in po.Items)
+                        {
+
+                            <li>@Html.DisplayFor(poItm => poItem.Name)</li>
+
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => po.TotalAfterTax)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+
+                    @Html.ActionLink("Edit", "Edit", new { id = po.PurchaseOrderId })
+
+
+                    @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+</table>

@@ -1,0 +1,14 @@
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Service.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Service.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Model.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Repository.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.DAL.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Types.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Model.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Repository.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.DAL.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\bin\Debug\BlueBank.Types.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\obj\Debug\BlueBank.Service.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\obj\Debug\BlueBank.Service.csproj.CopyComplete
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\obj\Debug\BlueBank.Service.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Service\obj\Debug\BlueBank.Service.pdb

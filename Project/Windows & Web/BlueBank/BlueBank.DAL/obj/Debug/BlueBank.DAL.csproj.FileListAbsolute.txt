@@ -1,0 +1,8 @@
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\bin\Debug\BlueBank.DAL.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\bin\Debug\BlueBank.DAL.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\bin\Debug\BlueBank.Types.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\bin\Debug\BlueBank.Types.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\obj\Debug\BlueBank.DAL.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\obj\Debug\BlueBank.DAL.csproj.CopyComplete
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\obj\Debug\BlueBank.DAL.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.DAL\obj\Debug\BlueBank.DAL.pdb

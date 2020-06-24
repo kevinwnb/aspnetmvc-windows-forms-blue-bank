@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker();
+        });
+
+        $('.searchBy').on('click', function () {
+            if (document.querySelector('#searchById').checked) {
+                $('#datePicker').hide();
+                $('#searchBox').show();
+            }
+            else {
+                $('#searchBox').hide();
+                $('#datePicker').show();
+            }
+        });
+    </script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style>
+        html, body {
+            min-height: 100%;
+        }
+
+        .navImg {
+            width: 35px;
+            height: 35px;
+            background-image: url(' ~/Images/Logo.jpeg');
+            object-fit: contain;
+        }
+
+        .dropdown-menu {
+            background: black;
+            text-align: center;
+        }
+
+        .dropdown-toggle, .nav-item a {
+            color: lightgrey !important;
+        }
+
+        .nav-item :hover {
+            background-color: none !important;
+            color: lightcyan !important;
+            text-decoration: none !important;
+        }
+
+        dropdown a :hover {
+            background-color: none !important;
+            color: lightcyan !important;
+            text-decoration: none !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
+        <img class="navImg" src="~/Images/Logo.jpeg" />
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="nav navbar-nav">
+                <li class="nav-item p-2 text-light">@Html.ActionLink("Home", "Index", "Home")</li>
+                <li class="nav-item p-2"></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Purchase Order</a>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Create", "Create", "PO")<br />
+                        @Html.ActionLink("Edit", "EditSearch", "PO")<br />
+                        @Html.ActionLink("Process", "ProcessSearch", "PO")<br />
+                        @Html.ActionLink("Browse", "BrowseSearch", "PO")
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Employees</a>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Search Employee", "Index", "Employee")
+                        @Html.ActionLink("Personal Info", "Edit", "Employee", new { id = Session["employeeId"] != null ? (int?)Session["employeeId"] : null }, null)
+
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Department</a>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Available Department(s)", "Index", "Department")
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Review</a>
+                    <div class="dropdown-menu">
+                        @Html.ActionLink("Review", "Index", "Review")
+                        @Html.ActionLink("My Review", "List", "Review")
+
+                    </div>
+
+                </li>
+
+                <li class="nav-item p-2 m-auto">@Html.ActionLink("Review", "Index", "Review")</li>
+
+            </ul>
+            @if (Session["employeeId"] == null)
+            {
+                <li class="nav-item p-2 ml-auto" style="list-style-type: none;">
+                    @Html.ActionLink("Log in", "Index", "Login", null, new { @class = "btn btn-success" })
+                </li>
+            }
+            else
+            {
+                <li class="nav-item p-2 ml-auto" style="list-style-type: none;">
+                    <p class="d-inline" style="color: white !important;">@Session["employeeId"].ToString()</p>&nbsp;
+                    @Html.ActionLink("Log out", "Logout", "Login", null, new { @class = "btn btn-danger" })
+                </li>
+            }
+        </div>
+    </nav>
+    <div class="container body-content" style="margin-bottom: 100px;">
+        @RenderBody()
+    </div>
+    <footer class="bg-dark text-light fixed-bottom p-3 text-center">
+        &copy; @DateTime.Now.Year - Camille Balima , Kevin Wegener - BlueBlank
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

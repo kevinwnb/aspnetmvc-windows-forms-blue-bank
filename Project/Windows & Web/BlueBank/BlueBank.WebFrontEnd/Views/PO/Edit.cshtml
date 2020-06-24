@@ -1,0 +1,360 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Edit Purchase Order</h2>
+</div>
+
+<hr />
+
+@if (Model.isSuccessEdit)
+{
+    <h3 class="text-success">Edit was successful</h3>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (Model.PurchaseOrder.Errors.Count > 0)
+    {
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach (var error in Model.PurchaseOrder.Errors)
+                {
+                    <li>@error.Description</li>
+                }
+            </ul>
+        </div>
+    }
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.PurchaseOrder.PurchaseOrderId)
+
+    @Html.HiddenFor(model => model.PurchaseOrder.TimeStamp)
+
+    <h4>Purchase Order Information:</h4>
+    <h3 class="text-warning">@Model.PurchaseOrder.Status.ToString()</h3>
+    <div class="row" style="padding: 20px;">
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderId)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderId, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.CreationDate)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.CreationDate, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.Department)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.Department, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+    </div>
+    <div class="row" style="padding: 20px;">
+        <div class="col">
+            @Html.LabelFor(model => model.EmployeeName)<br />
+            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.SupervisorName)<br />
+            @Html.EditorFor(model => model.SupervisorName, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.Status)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.Status, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+    </div>
+
+    <div class="bg-dark text-light p-2" style="margin-top: 30px;">
+        <h4 class="text-center">Add Item(s)</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row m-auto">
+            <div class="col d-block m-auto">
+
+                @Html.HiddenFor(model => model.ItemToAdd.ItemId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Name, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        }
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Description, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        }
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col d-block m-auto">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Justification, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Justification, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+
+                        }
+                        else
+                        {
+                            @Html.EditorFor(model => model.ItemToAdd.Justification, new { htmlAttributes = new { @class = "form-control" } })
+                        }
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Justification, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Location, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ItemToAdd.Location, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Location, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col d-block m-auto">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ItemToAdd.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemToAdd.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ItemToAdd.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ItemToAdd.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ItemToAdd.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ItemToAdd.Reason, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ItemToAdd.Reason, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+        <div class="m-auto">
+            @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+            {
+                //do nothing
+
+            }
+            else
+            {
+                <input name="addItem" type="submit" value="Add To List" class="btn btn-success" @(Model.editMode == true ? "disabled" : "") />
+            }
+            <input name="modifyItem" type="submit" value="Modify" class="btn btn-primary" @(Model.editMode == false ? "disabled" : "") />
+            @if ((BlueBank.Model.EmployeeType)Session["employeeType"] == BlueBank.Model.EmployeeType.RegularSupervisor && Model.PurchaseOrder.EmployeeId != (int)Session["employeeId"])
+            {
+                //do nothing
+
+            }
+            else
+            {
+                @Html.ActionLink("Reset", "ResetItemForm", "PO", new { from = "edit" }, new { @class = "btn btn-primary" })
+            }
+        </div>
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.ItemToAdd.PurchaseOrderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ItemToAdd.PurchaseOrderId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemToAdd.PurchaseOrderId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemToAdd.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ItemToAdd.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemToAdd.Date, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+    </div>
+    <div>
+        @if (Model.PurchaseOrder.Items.Count > 0)
+        {
+            <h3 style="margin-top: 50px;">Items</h3>
+            <table class="table table-secondary table-striped mt-3 text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Justification)
+                        </th>
+                        @if (Model.PurchaseOrder.Status != BlueBank.Model.POStatus.UnderReview)
+                        {
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemToAdd.Status)
+                            </th>
+                        }
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.subtotal)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.PurchaseOrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Reason)
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model.PurchaseOrder.Items)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Justification)
+                            </td>
+                            @if (Model.PurchaseOrder.Status != BlueBank.Model.POStatus.UnderReview)
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                            }
+                            <td>
+                                @Html.DisplayFor(modelItem => item.subtotal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PurchaseOrderId)
+                            </td>
+                            <td>
+                                @if (string.IsNullOrEmpty(item.Reason))
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Reason)
+                                }
+                            </td>
+                            <td>
+                                @if (item.Status != BlueBank.Model.ItemStatus.Pending)
+                                {
+                                    <p style="color: firebrick;">Processed</p>
+                                }
+                                else
+                                {
+                                    if ((int)Session["employeeId"] == Model.PurchaseOrder.EmployeeId)
+                                    {
+                                        @Html.ActionLink("Not Required", "CancelItem", "PO", new { id = item.ItemId }, null)<br />
+                                    }
+                                    @Html.ActionLink("Edit", "EditItem", "PO", new { id = item.ItemId }, null)
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div class="row" style="padding: 15px;">
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.Subtotal):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.Subtotal)</b>
+            </div>
+
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.Tax):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.Tax)</b>
+            </div>
+
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.TotalAfterTax):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.TotalAfterTax)</b>
+            </div>
+
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.TaxRate):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.TaxRate)</b>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            @Html.ActionLink("Back to Search", "EditSearch", "PO", null, new { @class = "btn btn-primary" })
+        </div>
+
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

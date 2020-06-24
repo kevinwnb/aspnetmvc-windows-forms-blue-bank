@@ -1,0 +1,66 @@
+﻿@model BlueBank.WebFrontEnd.Models.ReviewVM
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="display-4 text-center">Review Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Supervisor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SupervisorFullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quarter)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quarter)
+        </dd>
+        <dt>
+            Year
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.review.Date.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.review.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.review.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.review.Performance)
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.review.Performance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.review.Comment)
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.review.Comment)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "List")
+</p>

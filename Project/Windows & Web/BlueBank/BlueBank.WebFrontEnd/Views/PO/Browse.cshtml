@@ -1,0 +1,207 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Browse Purchase Order</h2>
+</div>
+
+<hr />
+
+<div>
+    <h4>Purchase Order Information:</h4>
+    <div class="row" style="padding: 20px;">
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.PurchaseOrderId)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.PurchaseOrderId, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.CreationDate)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.CreationDate, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.Department)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.Department, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+    </div>
+    <div class="row" style="padding: 15px;">
+        <div class="col">
+            @Html.LabelFor(model => model.EmployeeName)<br />
+            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.SupervisorName)<br />
+            @Html.EditorFor(model => model.SupervisorName, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.Status)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.Status, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+    </div>
+
+    <div>
+        @if (Model.PurchaseOrder.Items.Count > 0)
+        {
+            <h4 style="margin-top: 30px;">Items:</h4>
+            <table class="table table-secondary table-striped mt-3 text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Justification)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.subtotal)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.PurchaseOrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ItemToAdd.Reason)
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model.PurchaseOrder.Items)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Location)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Justification)
+                        </td>
+                        @if (Model.PurchaseOrder.Status != BlueBank.Model.POStatus.UnderReview)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                        }
+                        else if (Model.PurchaseOrder.Status == BlueBank.Model.POStatus.UnderReview)
+                        {
+                            if (item.Status != BlueBank.Model.ItemStatus.Pending && item.Description != "No longer needed")
+                            {
+                                <td>
+                                    <p>Under Review</p>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.subtotal)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PurchaseOrderId)
+                        </td>
+                        <td>
+                            @if (Model.PurchaseOrder.Status == BlueBank.Model.POStatus.UnderReview)
+                            {
+                                if (item.Status != BlueBank.Model.ItemStatus.Pending && item.Description != "No longer needed")
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(item.Reason))
+                                    {
+                                        @Html.DisplayFor(modelItem => item.Reason)
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(item.Reason))
+                                {
+                                    @Html.DisplayFor(modelItem => item.Reason)
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            <p>-</p>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <div class="row" style="padding: 15px;">
+        <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+            @Html.LabelFor(model => model.PurchaseOrder.Subtotal):
+            <b>@Html.DisplayFor(model => model.PurchaseOrder.Subtotal)</b>
+        </div>
+
+        <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+            @Html.LabelFor(model => model.PurchaseOrder.Tax):
+            <b>@Html.DisplayFor(model => model.PurchaseOrder.Tax)</b>
+        </div>
+
+        <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+            @Html.LabelFor(model => model.PurchaseOrder.TotalAfterTax):
+            <b>@Html.DisplayFor(model => model.PurchaseOrder.TotalAfterTax)</b>
+        </div>
+
+        <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+            @Html.LabelFor(model => model.PurchaseOrder.TaxRate):
+            <b>@Html.DisplayFor(model => model.PurchaseOrder.TaxRate)</b>
+        </div>
+    </div>
+
+    <p>
+        @Html.ActionLink("Back to List", "BrowseSearch")
+    </p>
+</div>

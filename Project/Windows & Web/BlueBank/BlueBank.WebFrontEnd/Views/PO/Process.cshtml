@@ -1,0 +1,240 @@
+﻿@model BlueBank.WebFrontEnd.Models.PurchaseOrderVM
+
+@{
+    ViewBag.Title = "Process";
+}
+
+<div class="text-center" style="margin-top: 70px;">
+    <h2 class="display-4">Process Purchase Order</h2>
+</div>
+
+<hr />
+
+<div class="form-horizontal">
+    @if (Model.IsSuccessProcess)
+    {
+        <h3 class="text-success">Changes saved successfully</h3>
+    }
+
+    @if (Model.PurchaseOrder.Errors.Count > 0)
+    {
+        foreach (var error in Model.PurchaseOrder.Errors)
+        {
+            <h3 class="text-danger">@error.Description</h3>
+        }
+    }
+
+    <h4>Purchase Order Information:</h4>
+    <h3 class="text-warning">@Model.PurchaseOrder.Status.ToString()</h3>
+    <div class="row" style="padding: 20px;">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="col">
+            @Html.LabelFor(model => model.ProcessPurchaseOrder.PurchaseOrderId)<br />
+            @Html.EditorFor(model => model.ProcessPurchaseOrder.PurchaseOrderId, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.ProcessPurchaseOrder.CreationDate)<br />
+            @Html.EditorFor(model => model.ProcessPurchaseOrder.CreationDate, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.PurchaseOrder.Status)<br />
+            @Html.EditorFor(model => model.PurchaseOrder.Status, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+        <div class="col">
+            @Html.LabelFor(model => model.ProcessPurchaseOrder.EmployeeName)<br />
+            @Html.EditorFor(model => model.ProcessPurchaseOrder.EmployeeName, new { htmlAttributes = new { @readonly = "readonly" } })
+        </div>
+    </div>
+
+    <div>
+        @if (Model.PurchaseOrder.Items.Count > 0)
+        {
+            <h4 style="margin-top: 30px;">Items:</h4>
+            <table class="table table-secondary table-striped mt-3 text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Description)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Price)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Location)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Justification)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Status)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.subtotal)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.PurchaseOrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Item.Reason)
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+                    @foreach (var item in Model.PurchaseOrder.Items)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Price)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Location)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Justification)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.subtotal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PurchaseOrderId)
+                            </td>
+                            <td>
+                                @if (string.IsNullOrEmpty(item.Reason))
+                                {
+                                    <p>-</p>
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.Reason)
+                                }
+                            </td>
+                            <td>
+                                @if (Model.PurchaseOrder.Status != BlueBank.Model.POStatus.Closed)
+                                {
+                                    @Html.ActionLink("Process", "Process", "PO", new { id = Model.PurchaseOrder.PurchaseOrderId, itemId = item.ItemId }, null)
+                                }
+                                else
+                                {
+                                    <p>-</p>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            if (Model.Item != null && Model.Item.ItemId > 0)
+            {
+                using (Html.BeginForm())
+                {
+    <div style="background-color: lightgray; padding: 20px;">
+        @Html.AntiForgeryToken()
+        <br />
+        <br />
+        <h3>Item: @Model.Item.Name</h3><br />
+        @Html.Hidden("itemId", Model.Item.ItemId)
+        @Html.RadioButton("status", "Pending", @Model.Item.Status == BlueBank.Model.ItemStatus.Pending ? true : false, new { @id = "pending" }) @Html.Label("Pending", new { @for = "pending" })
+        @Html.RadioButton("status", "Approve", @Model.Item.Status == BlueBank.Model.ItemStatus.Approved ? true : false, new { @id = "approve" }) @Html.Label("Approve", new { @for = "approve" })
+        @Html.RadioButton("status", "Deny", @Model.Item.Status == BlueBank.Model.ItemStatus.Denied ? true : false, new { @id = "deny" }) @Html.Label("Deny", new { @for = "deny" })
+        <br /><p id="pReason">Reason:</p>
+        @Html.TextArea("reason", new { @Value = string.IsNullOrEmpty(Model.Item.Reason) ? "" : Model.Item.Reason, @id = "reason" })
+        <input type="submit" name="submit" value="Save" />
+    </div>
+                    <script type="text/javascript">
+                        if (!document.getElementById("deny").checked) {
+                            document.getElementById("pReason").style.display = "none";
+                            document.getElementById("reason").style.display = "none";
+                        }
+
+                        var elements = document.getElementsByName("status");
+                        for (var e of elements) {
+                            e.addEventListener("click", function () {
+                                if (!document.getElementById("deny").checked) {
+                                    document.getElementById("pReason").style.display = "none";
+                                    document.getElementById("reason").style.display = "none";
+                                }
+                                else {
+                                    document.getElementById("pReason").style.display = "inline"
+                                    document.getElementById("reason").style.display = "inline";
+                                }
+                            });
+                        }
+                    </script>
+                }
+            }
+
+            using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken();
+                @Html.Hidden("purchaseOrderId", Model.PurchaseOrder.PurchaseOrderId)
+                @Html.Hidden("closeOrder", true)
+                <input hidden="hidden" type="submit" name="submit" id="closeOrderBtn" />
+                if (Model.ShowButtonToClose)
+                {
+                    if (Model.PurchaseOrder.Status != BlueBank.Model.POStatus.Closed)
+                    {
+                        <div class="text-center">
+                            <input type="submit" name="submit" value="Close PO" class="btn btn-danger" />
+                        </div>
+                    }
+                }
+            }
+
+            if (Model.ShowPromptToClose)
+            {
+                <script type="text/javascript">
+                    if (confirm("Do you want to close this Purchase Order?")) {
+                        document.getElementById("closeOrderBtn").click();
+                    }
+                </script>
+            }
+        }
+
+        <div class="row" style="padding: 15px;">
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.Subtotal):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.Subtotal)</b>
+            </div>
+
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.Tax):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.Tax)</b>
+            </div>
+
+            <div class="col" style="background-color: lightblue; padding: 4px; margin: 4px;">
+                @Html.LabelFor(model => model.PurchaseOrder.TotalAfterTax):
+                <b>@Html.DisplayFor(model => model.PurchaseOrder.TotalAfterTax)</b>
+            </div>
+        </div>
+
+        <div class="mb-5">
+            @Html.ActionLink("Back to Search", "ProcessSearch", "PO", null, new { @class = "btn btn-primary" })
+        </div>
+
+    </div>
+
+</div>

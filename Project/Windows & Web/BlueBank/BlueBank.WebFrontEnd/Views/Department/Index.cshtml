@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BlueBank.Model.DepartmentLookup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@if ((int)Session["employeeType"] == (int)BlueBank.Model.EmployeeType.RegularEmployee)
+{
+<div class="alert alert-info text-center">ONLY HR EMPLOYEES AND REGULAR SUPERVISORS CAN ACCESS THIS PAGE !</div>
+}
+else
+{
+     <h1 class="display-4 text-center">Departments</h1>
+     <hr />
+    <table class="table table-secondary table-striped">
+        <thead class="thead-dark text-center">
+            <tr>
+                <th colspan="2">
+                    AVAILABLE DEPARTMENTS
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>Action</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @*@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+        
+
+    </table>
+}
+

@@ -1,0 +1,12 @@
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Repository.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Repository.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.DAL.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Model.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Types.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.DAL.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Model.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\bin\Debug\BlueBank.Types.pdb
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\obj\Debug\BlueBank.Repository.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\obj\Debug\BlueBank.Repository.csproj.CopyComplete
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\obj\Debug\BlueBank.Repository.dll
+C:\Users\Kevin\Desktop\NBCC_2020_Comprehensive_Project\capstone-camille-kevin\Project\Windows & Web\BlueBank\BlueBank.Repository\obj\Debug\BlueBank.Repository.pdb
